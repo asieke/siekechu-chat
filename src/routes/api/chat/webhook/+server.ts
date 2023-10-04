@@ -1,9 +1,9 @@
-import axios from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
 
 //functions
 import { logToGoogleSheet } from '$lib/functions/logToGoogleSheet';
+import { sendSMS } from '$lib/functions/sendSMS';
 
 export const POST = async ({ request }: { request: Request }) => {
 	const { INCOMING_WEBHOOK_KEY } = process.env;
@@ -27,6 +27,9 @@ export const POST = async ({ request }: { request: Request }) => {
 
 		//log to google sheet
 		await logToGoogleSheet(payload);
+
+		//send the user back thanks
+		await sendSMS('Thanks for your message!');
 
 		return new Response(JSON.stringify({ bones: 'money' }), {
 			status: 200,

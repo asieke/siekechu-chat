@@ -8,7 +8,11 @@ const action = 'logTextMessage';
 const URL = `${GOOGLE_URL}?key=${GOOGLE_SHEET_KEY}&action=${action}`;
 
 export const logToGoogleSheet = async (payload: Payload) => {
-	const { data } = await axios.post(URL, payload);
-
-	return data;
+	try {
+		const { data } = await axios.post(URL, payload);
+		return data;
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
 };
