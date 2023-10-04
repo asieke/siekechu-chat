@@ -30,5 +30,3 @@ export const sendSMS = async (message: string) => {
 		return null;
 	}
 };
-
-sendSMS('Hello there!');
