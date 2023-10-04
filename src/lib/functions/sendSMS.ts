@@ -24,6 +24,7 @@ export const sendSMS = async (message: string) => {
 			params,
 			config
 		);
+		console.log(data);
 		return data;
 	} catch (error) {
 		console.log(error);
