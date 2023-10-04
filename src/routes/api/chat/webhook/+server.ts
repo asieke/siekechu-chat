@@ -1,6 +1,8 @@
-import { INCOMING_WEBHOOK_KEY } from '$env/static/private';
+import dotenv from 'dotenv';
+dotenv.config();
 
 export const POST = async ({ request, query }: { request: Request; query: URLSearchParams }) => {
+	const { INCOMING_WEBHOOK_KEY } = process.env;
 	try {
 		// Retrieve API key from query parameters
 		const apiKey = query.get('key');
