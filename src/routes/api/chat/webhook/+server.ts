@@ -1,21 +1,32 @@
+import axios from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
 
-export const POST = async ({ request, query }: { request: Request; query: URLSearchParams }) => {
+//functions
+import { logToGoogleSheet } from '$lib/functions/logToGoogleSheet';
+
+export const POST = async ({ request }: { request: Request }) => {
 	const { INCOMING_WEBHOOK_KEY } = process.env;
+
 	try {
 		// Retrieve API key from query parameters
-		const apiKey = query.get('key');
+		const url = new URL(request.url);
+		const apiKey = url.searchParams.get('key');
 
 		// Validate API key
 		if (apiKey !== INCOMING_WEBHOOK_KEY) {
 			return new Response('Unauthorized', { status: 401 });
 		}
 
+		//get the webhook payload
 		const payload = await request.json();
 
+		//log the payload
 		console.log('payload', payload);
 		console.log('running webhook.... hello!');
+
+		//log to google sheet
+		await logToGoogleSheet(payload);
 
 		return new Response(JSON.stringify({ bones: 'money' }), {
 			status: 200,
