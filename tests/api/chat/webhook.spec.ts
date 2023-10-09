@@ -5,7 +5,7 @@ const { INCOMING_WEBHOOK_KEY } = process.env;
 import { expect, test } from '@playwright/test';
 
 const postData = {
-	body: 'Hello there!',
+	body: 'Hello there! (test from localhost)',
 	from: '17032443494',
 	id: '01HBVQ3K8883ZCAFE2BR5RNQRF',
 	operator_id: '310150',

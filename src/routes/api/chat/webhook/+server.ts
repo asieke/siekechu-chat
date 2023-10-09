@@ -1,9 +1,11 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+import type { Payload } from '$lib/types';
+
 //functions
-import { logToGoogleSheet } from '$lib/functions/logToGoogleSheet';
 import { sendSMS } from '$lib/functions/sendSMS';
+import { logMessage } from '$lib/functions/logMessage';
 
 export const POST = async ({ request }: { request: Request }) => {
 	const { INCOMING_WEBHOOK_KEY } = process.env;
@@ -18,15 +20,13 @@ export const POST = async ({ request }: { request: Request }) => {
 			return new Response('Unauthorized', { status: 401 });
 		}
 
-		//get the webhook payload
-		const payload = await request.json();
+		//get the webhook payload and log it to supabase
+		const payload = (await request.json()) as Payload;
+		await logMessage({ from: payload.from, to: payload.to, message: payload.body });
 
 		//log the payload
 		console.log('payload', payload);
 		console.log('running webhook.... hello!');
-
-		//log to google sheet
-		await logToGoogleSheet(payload);
 
 		//send the user back thanks
 		await sendSMS('Thanks for your message!');

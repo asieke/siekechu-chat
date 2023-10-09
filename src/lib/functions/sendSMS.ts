@@ -2,6 +2,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 const { SINCH_KEY } = process.env;
 
+import { logMessage } from '$lib/functions/logMessage';
+
 import axios from 'axios';
 
 export const sendSMS = async (message: string) => {
@@ -24,10 +26,12 @@ export const sendSMS = async (message: string) => {
 			params,
 			config
 		);
+
+		await logMessage({ from: params.from, to: params.to[0], message: params.body });
 		console.log(data);
 		return data;
 	} catch (error) {
-		console.log(error);
+		console.log('Error: ', error);
 		return null;
 	}
 };
