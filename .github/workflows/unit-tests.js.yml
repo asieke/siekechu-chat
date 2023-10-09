@@ -19,6 +19,10 @@ jobs:
 
     env:
       SINCH_KEY: ${{ secrets.SINCH_KEY }}
+      PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
+      PUBLIC_SERVICE_ROLE_KEY: ${{ secrets.PUBLIC_SERVICE_ROLE_KEY }}
+      INCOMING_WEBHOOK_KEY: ${{ secrets.INCOMING_WEBHOOK_KEY }}
+      GOOGLE_SHEET_KEY: ${{ secrets.GOOGLE_SHEET_KEY }}
 
     steps:
       - uses: actions/checkout@v3
