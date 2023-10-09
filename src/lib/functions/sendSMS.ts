@@ -1,4 +1,4 @@
-import { SINCH_KEY } from '$env/static/private';
+import { SINCH_KEY } from '$lib/env';
 import { logMessage } from '$lib/functions/logMessage';
 
 import axios from 'axios';
