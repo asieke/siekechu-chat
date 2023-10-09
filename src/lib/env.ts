@@ -8,5 +8,4 @@ export const INCOMING_WEBHOOK_KEY: string = process.env.INCOMING_WEBHOOK_KEY!;
 export const GOOGLE_SHEET_KEY: string = process.env.GOOGLE_SHEET_KEY!;
 export const OPENAI_KEY: string = process.env.OPENAI_KEY!;
 
-export const GOOGLE_URL =
-	'https://script.google.com/macros/s/AKfycbwCxv7v_FR4rv2JTwbTpQo9ZGh7qzawfyPy9f1ndYFNWR7bxMoYK-SS2egbkcnurtoV/exec';
+export const GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbwCxv7v_FR4rv2JTwbTpQo9ZGh7qzawfyPy9f1ndYFNWR7bxMoYK-SS2egbkcnurtoV/exec';
