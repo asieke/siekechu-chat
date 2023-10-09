@@ -1,6 +1,4 @@
-import dotenv from 'dotenv';
-dotenv.config();
-const { INCOMING_WEBHOOK_KEY } = process.env;
+import { INCOMING_WEBHOOK_KEY } from '$env/static/private';
 
 import { expect, test } from '@playwright/test';
 
