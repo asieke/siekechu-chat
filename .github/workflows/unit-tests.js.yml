@@ -23,6 +23,7 @@ jobs:
       SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
       INCOMING_WEBHOOK_KEY: ${{ secrets.INCOMING_WEBHOOK_KEY }}
       GOOGLE_SHEET_KEY: ${{ secrets.GOOGLE_SHEET_KEY }}
+      OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
 
     steps:
       - uses: actions/checkout@v3
