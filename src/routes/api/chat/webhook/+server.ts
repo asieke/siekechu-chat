@@ -3,8 +3,8 @@ import { INCOMING_WEBHOOK_KEY } from '$lib/env';
 import type { Payload } from '$lib/types';
 
 //functions
-import { sendSMS } from '$lib/functions/sendSMS';
 import { logMessage } from '$lib/functions/logMessage';
+import { routeMessage } from '$lib/functions/routeMessage';
 
 export const POST = async ({ request }: { request: Request }) => {
 	try {
@@ -21,12 +21,8 @@ export const POST = async ({ request }: { request: Request }) => {
 		const payload = (await request.json()) as Payload;
 		await logMessage({ from: payload.from, to: payload.to, message: payload.body });
 
-		//log the payload
-		console.log('payload', payload);
-		console.log('running webhook.... hello!');
-
-		//send the user back thanks
-		await sendSMS('Thanks for your message!');
+		//route the message to the appropriate function
+		await routeMessage(payload.body);
 
 		return new Response(JSON.stringify({ bones: 'money' }), {
 			status: 200,
