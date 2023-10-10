@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import OpenAI from 'openai';
-import { OPENAI_KEY } from '$lib/env';
+import { OPENAI_KEY } from '$env/static/private';
 import type { ChatCompletionMessage } from 'openai/resources/chat';
 
 const openai = new OpenAI({

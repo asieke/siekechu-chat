@@ -1,4 +1,4 @@
-import { INCOMING_WEBHOOK_KEY } from '$lib/env';
+import { INCOMING_WEBHOOK_KEY } from '$env/static/private';
 
 import type { Payload } from '$lib/types';
 

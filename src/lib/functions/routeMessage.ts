@@ -1,4 +1,5 @@
-import { GOOGLE_SHEET_KEY, GOOGLE_URL } from '$lib/env';
+import { GOOGLE_SHEET_KEY } from '$env/static/private';
+import { GOOGLE_URL } from '$lib/env';
 import axios from 'axios';
 import { textToAction } from '$clients/openAI';
 import { sendSMS } from '$lib/functions/sendSMS';
