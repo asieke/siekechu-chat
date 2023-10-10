@@ -102,7 +102,7 @@ async function getJSONFromAI(prompt: string) {
 			});
 
 			const object = validateObject(JSON.parse(chatCompletion.choices[0].message.content!));
-			console.log('ATTEMPT ' + (i + 1) + ': ' + JSON.stringify(object));
+			console.log('\n[validateObject (response) ' + (i + 1) + ']: ' + JSON.stringify(object));
 
 			if (!object) return null;
 			if (!object.error) return object;
@@ -118,7 +118,7 @@ async function getJSONFromAI(prompt: string) {
 //write a function that takes a prompt, tries to get a response up to 3 times, and returns the response
 
 export async function textToAction(text: string) {
-	console.log('-------------------\n' + text + '\n-------------------');
+	console.log('\n[textToAction]: ' + text);
 	let response = null;
 	for (let i = 0; i < 2; i++) {
 		response = await getJSONFromAI(text);

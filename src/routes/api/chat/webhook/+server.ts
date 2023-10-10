@@ -6,6 +6,10 @@ import type { Payload } from '$lib/types';
 import { logMessage } from '$lib/functions/logMessage';
 import { routeMessage } from '$lib/functions/routeMessage';
 
+export const config = {
+	runtime: 'edge'
+};
+
 export const POST = async ({ request }: { request: Request }) => {
 	try {
 		// Retrieve API key from query parameters
