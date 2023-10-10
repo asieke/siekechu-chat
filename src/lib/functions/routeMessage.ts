@@ -17,6 +17,11 @@ export async function routeMessage(message: string) {
 			await axios.post(url, res.data);
 			await sendSMS(res.data.title + ' added to calendar: ' + getColloquialDate(res.data.start));
 		}
+		if (res.action === 'reminder') {
+			const url = `${GOOGLE_URL}?key=${GOOGLE_SHEET_KEY}&action=addReminder`;
+			await axios.post(url, res.data);
+			await sendSMS('reminder added: ' + res.data.reminder);
+		}
 	} catch (e) {
 		await sendSMS('No action taken, please try again');
 		return;
