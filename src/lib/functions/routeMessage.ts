@@ -2,6 +2,7 @@ import { GOOGLE_SHEET_KEY, GOOGLE_URL } from '$lib/env';
 import axios from 'axios';
 import { textToAction } from '$clients/openAI';
 import { sendSMS } from '$lib/functions/sendSMS';
+import { getColloquialDate } from '$lib/strings/dates';
 
 export async function routeMessage(message: string) {
 	const res = await textToAction(message);
@@ -14,7 +15,7 @@ export async function routeMessage(message: string) {
 		if (res.action === 'calendar') {
 			const url = `${GOOGLE_URL}?key=${GOOGLE_SHEET_KEY}&action=addToCalendar`;
 			await axios.post(url, res.data);
-			await sendSMS(res.data.title + ' added to calendar: ' + res.data.start);
+			await sendSMS(res.data.title + ' added to calendar: ' + getColloquialDate(res.data.start));
 		}
 	} catch (e) {
 		await sendSMS('No action taken, please try again');
