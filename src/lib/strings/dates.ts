@@ -2,7 +2,7 @@ export function getColloquialDate(dateStr: string) {
 	const target = new Date(dateStr);
 
 	const date = getDay(target);
-	const time = target.toLocaleTimeString('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: 'numeric' });
+	const time = target.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
 
 	return date + ' at ' + time;
 }
