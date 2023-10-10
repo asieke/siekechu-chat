@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import OpenAI from 'openai';
 import { OPENAI_KEY } from '$lib/env';
-import type { ChatCompletionCreateParams, ChatCompletionMessage } from 'openai/resources/chat';
+import type { ChatCompletionMessage } from 'openai/resources/chat';
 
 const openai = new OpenAI({
 	apiKey: OPENAI_KEY // defaults to process.env["OPENAI_API_KEY"]
@@ -98,7 +98,7 @@ async function getJSONFromAI(prompt: string) {
 		for (let i = 0; i < 5; i++) {
 			const chatCompletion = await openai.chat.completions.create({
 				messages: messages,
-				model: 'gpt-4'
+				model: 'gpt-3.5-turbo'
 			});
 
 			const object = validateObject(JSON.parse(chatCompletion.choices[0].message.content!));
