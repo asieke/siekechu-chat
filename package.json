@@ -36,8 +36,11 @@
 	"dependencies": {
 		"@supabase/supabase-js": "^2.38.0",
 		"@sveltejs/adapter-vercel": "^3.0.3",
+		"chrono-node": "^2.7.0",
 		"date-fns": "^2.30.0",
 		"install": "^0.13.0",
+		"luxon": "^3.4.3",
+		"moment": "^2.29.4",
 		"npm": "^10.2.0",
 		"openai": "^4.11.1"
 	}

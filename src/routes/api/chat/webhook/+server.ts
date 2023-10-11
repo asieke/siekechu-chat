@@ -4,7 +4,7 @@ import type { Payload } from '$lib/types';
 
 //functions
 import { logMessage, logWebhook } from '$lib/functions/logging';
-// import { routeMessage } from '$lib/functions/routeMessage';
+import { routeMessage } from '$lib/functions/routeMessage';
 
 export const config = {
 	runtime: 'edge'
@@ -28,8 +28,9 @@ export const POST = async ({ request }: { request: Request }) => {
 		await logWebhook(payload);
 
 		//route the message to the appropriate function
-		// await routeMessage(payload.body);
+		routeMessage(payload.body);
 
+		console.log('Completed webhook', new Date().toLocaleTimeString());
 		return new Response('Success', { status: 200 });
 	} catch (error) {
 		console.log('Error:', error);
