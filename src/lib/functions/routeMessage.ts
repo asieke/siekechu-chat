@@ -53,5 +53,3 @@ export async function routeMessage(message: string) {
 		return;
 	}
 }
-
-routeMessage('remind me to take out the trash tomorrow at 8pm');

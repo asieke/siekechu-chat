@@ -89,7 +89,6 @@ function validateObject(object: any) {
 
 async function getJSONFromAI(prompt: string) {
 	try {
-		//initialize the chat messages
 		const messages: ChatCompletionMessage[] = [
 			{ role: 'system', content: context },
 			{ role: 'user', content: prompt }
@@ -102,10 +101,13 @@ async function getJSONFromAI(prompt: string) {
 			});
 
 			const object = validateObject(JSON.parse(chatCompletion.choices[0].message.content!));
+
 			console.log('\n[validateObject (response) ' + (i + 1) + ']: ' + JSON.stringify(object));
 
-			if (!object) return null;
-			if (!object.error) return object;
+			// Stop looping if we get a valid object without errors
+			if (object && !object.error) {
+				return object;
+			}
 
 			messages.push({ role: 'assistant', content: object.assistant });
 			messages.push({ role: 'user', content: object.message });
@@ -113,17 +115,16 @@ async function getJSONFromAI(prompt: string) {
 	} catch (e) {
 		return null;
 	}
+	return null; // Return null if it reaches here after all attempts
 }
-
-//write a function that takes a prompt, tries to get a response up to 3 times, and returns the response
 
 export async function textToAction(text: string) {
 	console.log('\n[textToAction]: ' + text);
 	let response = null;
-	for (let i = 0; i < 2; i++) {
+	for (let i = 0; i < 3; i++) {
 		response = await getJSONFromAI(text);
 		if (response) {
-			break;
+			break; // Exit the loop if we get a valid response
 		}
 	}
 	return response;

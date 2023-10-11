@@ -3,14 +3,15 @@ import { INCOMING_WEBHOOK_KEY } from '$env/static/private';
 import type { Payload } from '$lib/types';
 
 //functions
-import { logMessage } from '$lib/functions/logMessage';
-import { routeMessage } from '$lib/functions/routeMessage';
+import { logMessage, logWebhook } from '$lib/functions/logging';
+// import { routeMessage } from '$lib/functions/routeMessage';
 
 export const config = {
 	runtime: 'edge'
 };
 
 export const POST = async ({ request }: { request: Request }) => {
+	console.log('Incoming webhook request', new Date().toLocaleTimeString());
 	try {
 		// Retrieve API key from query parameters
 		const url = new URL(request.url);
@@ -24,14 +25,12 @@ export const POST = async ({ request }: { request: Request }) => {
 		//get the webhook payload and log it to supabase
 		const payload = (await request.json()) as Payload;
 		await logMessage({ from: payload.from, to: payload.to, message: payload.body });
+		await logWebhook(payload);
 
 		//route the message to the appropriate function
-		await routeMessage(payload.body);
+		// await routeMessage(payload.body);
 
-		return new Response(JSON.stringify({ bones: 'money' }), {
-			status: 200,
-			headers: { 'Content-Type': 'application/json' }
-		});
+		return new Response('Success', { status: 200 });
 	} catch (error) {
 		console.log('Error:', error);
 		return new Response('Internal Server Error', { status: 500 });

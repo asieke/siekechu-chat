@@ -1,5 +1,5 @@
 import { SINCH_KEY } from '$env/static/private';
-import { logMessage } from '$lib/functions/logMessage';
+import { logMessage } from '$lib/functions/logging';
 
 export const sendSMS = async (message: string) => {
 	const params = {

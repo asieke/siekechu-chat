@@ -27,6 +27,42 @@ export interface Database {
 				};
 				Relationships: [];
 			};
+			webhooks: {
+				Row: {
+					body: string | null;
+					created_at: string;
+					from: string | null;
+					id: number;
+					operator_id: string | null;
+					received_at: string | null;
+					sinch_id: string | null;
+					to: string | null;
+					type: string | null;
+				};
+				Insert: {
+					body?: string | null;
+					created_at?: string;
+					from?: string | null;
+					id?: number;
+					operator_id?: string | null;
+					received_at?: string | null;
+					sinch_id?: string | null;
+					to?: string | null;
+					type?: string | null;
+				};
+				Update: {
+					body?: string | null;
+					created_at?: string;
+					from?: string | null;
+					id?: number;
+					operator_id?: string | null;
+					received_at?: string | null;
+					sinch_id?: string | null;
+					to?: string | null;
+					type?: string | null;
+				};
+				Relationships: [];
+			};
 		};
 		Views: {
 			[_ in never]: never;
