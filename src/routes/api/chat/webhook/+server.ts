@@ -1,5 +1,4 @@
 import { INCOMING_WEBHOOK_KEY } from '$env/static/private';
-import { isRecentMessage } from '$lib/clients/supabase';
 import type { Payload } from '$lib/types';
 
 //functions
@@ -21,14 +20,14 @@ export const POST = async ({ request }: { request: Request }) => {
 		//get the webhook payload and log it to supabase
 		const payload = (await request.json()) as Payload;
 
+		//log the messages - logWebhook returns true if the webhook is unique, false it its already been processed
+		await logMessage({ from: payload.from, to: payload.to, message: payload.body });
+		const webhookInserted = await logWebhook(payload);
+
 		//if the message has not been processed
-		if ((await isRecentMessage(payload.body)) === false) {
+		if (webhookInserted === true) {
 			await routeMessage(payload.body);
 		}
-
-		//log the messages
-		await logMessage({ from: payload.from, to: payload.to, message: payload.body });
-		await logWebhook(payload);
 
 		console.log('Completed webhook', new Date().toLocaleTimeString());
 		return new Response('Success', { status: 200 });
