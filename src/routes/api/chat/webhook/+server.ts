@@ -15,7 +15,6 @@ export const POST = async ({ request }: { request: Request }) => {
 
 		// Validate API key
 		if (apiKey !== INCOMING_WEBHOOK_KEY) {
-			console.log('BAD KEY!!');
 			return new Response('Unauthorized', { status: 401 });
 		}
 
@@ -25,7 +24,7 @@ export const POST = async ({ request }: { request: Request }) => {
 		await logWebhook(payload);
 
 		//route the message to the appropriate function
-		routeMessage(payload.body);
+		await routeMessage(payload.body);
 
 		console.log('Completed webhook', new Date().toLocaleTimeString());
 		return new Response('Success', { status: 200 });
