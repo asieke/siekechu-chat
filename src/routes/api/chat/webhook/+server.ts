@@ -20,13 +20,15 @@ export const POST = async ({ request }: { request: Request }) => {
 
 		//get the webhook payload and log it to supabase
 		const payload = (await request.json()) as Payload;
-		await logMessage({ from: payload.from, to: payload.to, message: payload.body });
-		await logWebhook(payload);
 
 		//if the message has not been processed
 		if ((await isRecentMessage(payload.body)) === false) {
 			await routeMessage(payload.body);
 		}
+
+		//log the messages
+		await logMessage({ from: payload.from, to: payload.to, message: payload.body });
+		await logWebhook(payload);
 
 		console.log('Completed webhook', new Date().toLocaleTimeString());
 		return new Response('Success', { status: 200 });

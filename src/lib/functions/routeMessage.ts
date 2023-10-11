@@ -6,6 +6,10 @@ import { sendSMS } from '$lib/functions/sendSMS';
 import { getColloquialDate } from '$lib/strings/dates';
 
 export async function routeMessage(message: string) {
+	console.log('------------------------------------------------------------------');
+	console.log('[routeMessage]: ', message);
+	console.log('------------------------------------------------------------------');
+
 	const res = await textToAction(message);
 	if (!res || !res.action || !res.data) {
 		await sendSMS('No Action Taken, please try again');
