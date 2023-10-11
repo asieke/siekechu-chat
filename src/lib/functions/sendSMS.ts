@@ -1,5 +1,6 @@
 import { SINCH_KEY } from '$env/static/private';
 import { logMessage } from '$lib/functions/logging';
+import axios from 'axios';
 
 export const sendSMS = async (message: string) => {
 	const params = {
@@ -9,21 +10,18 @@ export const sendSMS = async (message: string) => {
 	};
 
 	try {
-		const response = await fetch('https://sms.api.sinch.com/xms/v1/3f7fa1e89e784727b104fd134995b7ae/batches', {
-			method: 'POST',
+		const response = await axios.post('https://sms.api.sinch.com/xms/v1/3f7fa1e89e784727b104fd134995b7ae/batches', params, {
 			headers: {
 				Authorization: 'Bearer ' + SINCH_KEY,
 				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(params)
+			}
 		});
 
-		if (response.ok) {
-			const data = await response.json();
+		if (response.status === 200) {
 			await logMessage({ from: params.from, to: params.to[0], message: params.body });
-			return data;
+			return response.data;
 		} else {
-			console.log('Error: ', await response.text());
+			console.log('Error: ', response.statusText);
 			return null;
 		}
 	} catch (error) {

@@ -15,6 +15,7 @@ export const POST = async ({ request }: { request: Request }) => {
 
 		// Validate API key
 		if (apiKey !== INCOMING_WEBHOOK_KEY) {
+			console.log('BAD KEY!!');
 			return new Response('Unauthorized', { status: 401 });
 		}
 

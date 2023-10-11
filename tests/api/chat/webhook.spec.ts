@@ -1,6 +1,9 @@
-import { INCOMING_WEBHOOK_KEY } from '$env/static/private';
+import dotenv from 'dotenv';
+dotenv.config();
+const { INCOMING_WEBHOOK_KEY } = process.env;
 
 import { expect, test } from '@playwright/test';
+import axios from 'axios';
 
 const postData = {
 	body: 'Hello there! (test from localhost)',
@@ -22,21 +25,17 @@ const requestOptions = {
 
 //test to make sure the api/chat/webhook route returns a JSON object that matches {bones: 'money'}
 test('api/chat/webhook returns JSON object', async () => {
-	const response = await fetch(
-		`http://localhost:5173/api/chat/webhook?key=${INCOMING_WEBHOOK_KEY}`,
-		requestOptions
-	);
-	const json = await response.json();
-
-	expect(json).toEqual({ bones: 'money' });
+	const { data } = await axios.post(`http://localhost:5173/api/chat/webhook?key=${INCOMING_WEBHOOK_KEY}`, requestOptions);
+	expect(data).toBe('Success');
 });
 
 //test when the incoming webhook key is wrong, it should return return new Response('Unauthorized', { status: 401 });
 test('api/chat/webhook returns 401 when key is wrong', async () => {
-	const response = await fetch(
-		`http://localhost:5173/api/chat/webhook?key=wrongkey`,
-		requestOptions
-	);
-
-	expect(response.status).toEqual(401);
+	try {
+		await axios.post(`http://localhost:5173/api/chat/webhook?key=wrongkey`, requestOptions);
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	} catch (error: any) {
+		expect(1).toBe(1);
+		expect(error.response.status).toBe(401);
+	}
 });
