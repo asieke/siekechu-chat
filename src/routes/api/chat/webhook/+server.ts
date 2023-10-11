@@ -28,7 +28,7 @@ export const POST = async ({ request }: { request: Request }) => {
 		await logWebhook(payload);
 
 		//route the message to the appropriate function
-		await routeMessage(payload.body);
+		// await routeMessage(payload.body);
 
 		console.log('Completed webhook', new Date().toLocaleTimeString());
 		return new Response('Success', { status: 200 });
